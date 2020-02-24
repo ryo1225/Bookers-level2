@@ -1,0 +1,34 @@
+<div class="container">
+
+   <h1>Log in</h1>
+
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group has-icon">
+
+      <p>name</p>
+      <label class="control-label sr-only" for="inputName">Name</label>
+      <%= f.text_field :name, autofocus: true %>
+      <span class="fa fa-envelope form-control-icon" aria-hidden="true"></span>
+
+    </div>
+    <div class="form-group has-icon">
+      <label class="control-label sr-only" for="inputPassword">Password</label>
+      <p>Password</p>
+      <%= f.password_field :password, autocomplete: "off" %>
+      <span class="fa fa-lock form-control-icon" aria-hidden="true"></span>
+    </div>
+    <%= f.submit "Log in"  %>
+  <% end %>
+    <p><a href="/users/sign_up">Sign Up</a></p>
+    <footer>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-xs-3 col-xs-offset-9'>
+        <p>CopyRight Infratop.inc</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+
