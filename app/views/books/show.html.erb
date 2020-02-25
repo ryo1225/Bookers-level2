@@ -27,22 +27,23 @@
 
 				<h2>User info</h2>
 
+				<div><%= attachment_image_tag @user, :profile_image, :fill, 90, 90, class: "attachment user profile_image" %></div>
 
 
 					<table class="table">
 					  <tbody>
 						<tr>
 							<th>name</th>
-							
+							<th><%= current_user.name %></th>
 						</tr>
 						<tr>
 							<th>introduction</th>
-							<th></th>
+							<th><%= current_user.introduction %></th>
 						</tr>
 					  </tbody>
 					</table>
 
-
+			<%= link_to '', edit_user_path(current_user.id), class:"btn btn-default btn-block glyphicon glyphicon-wrench" %>
 
 				<h2>New Book</h2>
 					<%= form_for(@book) do |f| %>
@@ -73,16 +74,19 @@
 				<tbody>
 
 					<tr>
-						<th>アイコン</th>
+						<th><%= attachment_image_tag @user, :profile_image, :fill, 90, 90, fallback: "no-image.jpg" , size:'50x50', class: "attachment user profile_image" %>
+						</th>
 						<td><%= @book.title %></td>
 						<td><%= @book.body %></td>
 						<td>
-						<%= link_to 'edit', edit_book_path, class:"btn-sm btn-success" %>
-						
-						<td>
+							<% if @book.user == current_user %>
+							<%= link_to 'edit', edit_book_path, class:"btn-sm btn-success" %>
+							<% end %>
 
-							<%= link_to 'destroy', books_path(@book), method: :delete, class:"btn-sm btn-danger destroy_book" %>
-							
+						<td>
+							<% if @book.user == current_user %>
+							<%= link_to 'destroy', book_path(@book), method: :delete, class:"btn-sm btn-danger destroy_book" %>
+							<% end %>
 						</td>
 
 				</tbody>

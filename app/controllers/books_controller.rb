@@ -1,11 +1,12 @@
 class BooksController < ApplicationController
-before_action :authenticate_user!
+before_action :authenticate_user!, except: [:top]
 
 	def top
 	end
 
 
     def index
+      @user = current_user
     	@book = Book.new
     	@books = Book.all
     end
@@ -16,11 +17,13 @@ before_action :authenticate_user!
         flash[:notice] = 'You have created book successfully.'
     	redirect_to book_path(@book.id)
     else
-      render :index
+      @books = Book.all
+      render action: :index
     end
 	end
   	def show
     	@book = Book.find(params[:id])
+      @user = Book.find(params[:id]).user
   	end
   	def edit
    	 	@book = Book.find(params[:id])
@@ -33,9 +36,8 @@ before_action :authenticate_user!
   	end
   	def destroy
     	@book = Book.find(params[:id])
-      @book.user.id == current_user.id
     	@book.destroy
-    	redirect_to books_path(@book)
+    	redirect_to books_path
   end
     private
 
